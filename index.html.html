@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innovación Disruptiva – Marco F. Cárdenas Pérez</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#0a0a0a; --white:#f5f3ef; --accent:#e63946; --gold:#f4a261;
+  --blue-deep:#1d3557; --blue-mid:#457b9d; --blue-light:#a8dadc;
+  --cream:#fef9f0; --gray:#8d99ae;
+  /* v7 vars */
+  --gold-v7: #C9A84C;
+  --gold-light: #E8C96A;
+  --gold-pale: #F5E6B8;
+  --navy: #0A1628;
+  --navy-mid: #112040;
+  --navy-light: #1A3060;
+  --teal: #1ABFB0;
+  --teal-glow: rgba(26,191,176,0.18);
+  --white-v7: #F7F4EF;
+  --text-soft: #B8C8D8;
+  --red-accent: #E8523A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#111827;
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;overflow:hidden;cursor:pointer;
+}
+
+/* ── PROGRESS ── */
+#progress{
+  position:fixed;top:0;left:0;height:4px;
+  background:linear-gradient(90deg,var(--accent),var(--gold));
+  transition:width .4s ease;z-index:1000;
+}
+
+/* ── NAV BAR ── */
+#nav{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;align-items:center;
+  background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);
+  border-radius:50px;padding:10px 22px;z-index:999;
+  border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 32px rgba(0,0,0,0.4);
+}
+#nav button{
+  background:none;border:none;color:#fff;font-size:20px;
+  cursor:pointer;padding:4px 14px;border-radius:30px;transition:background .2s;
+}
+#nav button:hover{background:rgba(255,255,255,0.14);}
+#slide-counter{
+  color:rgba(255,255,255,0.55);font-family:'Space Mono',monospace;
+  font-size:13px;min-width:56px;text-align:center;
+}
+#dot-nav{display:flex;gap:6px;}
+.dot{
+  width:9px;height:9px;border-radius:50%;
+  background:rgba(255,255,255,0.22);cursor:pointer;transition:all .3s;
+}
+.dot.active{background:var(--accent);width:24px;border-radius:4px;}
+
+/* ── CLICK HINT ── */
+#click-hint{
+  position:fixed;bottom:80px;right:36px;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);
+  border-radius:30px;padding:8px 18px;
+  font-size:12px;color:rgba(255,255,255,0.55);
+  font-family:'Space Mono',monospace;letter-spacing:1px;
+  border:1px solid rgba(255,255,255,0.08);
+  animation:fadeHint 4s ease forwards;
+}
+@keyframes fadeHint{0%{opacity:1}70%{opacity:1}100%{opacity:0;pointer-events:none;}}
+
+/* ── SCALE WRAP ── */
+#scale-wrap{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;}
+#slider-container{transform-origin:center center;position:relative;}
+#slider{width:1280px;height:720px;position:relative;border-radius:14px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,0.75);}
+
+/* ── SLIDE BASE ── */
+.slide{
+  position:absolute;inset:0;width:100%;height:100%;
+  opacity:0;transform:translateX(90px) scale(.98);
+  transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
+.slide.active{opacity:1;transform:translateX(0) scale(1);pointer-events:auto;}
+.slide.exit{opacity:0;transform:translateX(-90px) scale(.98);}
+
+/* ══════════════════════════════════════════
+   SLIDE 1 — PORTADA
+══════════════════════════════════════════ */
+.s1{background:#0a0a0a;display:flex;align-items:center;overflow:hidden;}
+.s1-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 55% 55% at 75% 50%,rgba(230,57,70,.2) 0%,transparent 70%),
+    radial-gradient(ellipse 35% 45% at 10% 80%,rgba(69,123,157,.18) 0%,transparent 60%),
+    linear-gradient(135deg,#0a0a0a 0%,#0d1a26 100%);
+}
+.s1-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:64px 64px;
+}
+.s1-content{position:relative;z-index:2;padding:72px 80px;max-width:760px;}
+.s1-tag{
+  font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;
+  color:var(--accent);text-transform:uppercase;margin-bottom:26px;
+  display:flex;align-items:center;gap:12px;
+}
+.s1-tag::before{content:'';display:block;width:44px;height:1px;background:var(--accent);}
+.s1-title{
+  font-family:'Playfair Display',serif;font-size:88px;font-weight:900;
+  line-height:.93;color:#fff;letter-spacing:-3px;margin-bottom:6px;
+}
+.s1-title-ghost{
+  font-family:'Playfair Display',serif;font-size:88px;font-weight:900;
+  line-height:.93;color:rgba(255,255,255,.09);letter-spacing:-3px;margin-bottom:42px;
+}
+.s1-divider{width:64px;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));margin-bottom:34px;}
+.s1-meta{display:flex;flex-direction:column;gap:10px;}
+.s1-author{font-size:17px;color:rgba(255,255,255,.65);letter-spacing:.4px;line-height:1.5;}
+.s1-author strong{color:#fff;font-size:18px;}
+.s1-badge{
+  display:inline-block;margin-top:22px;padding:9px 22px;border-radius:4px;
+  font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;
+  text-transform:uppercase;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.45);
+}
+.s1-foco-wrap{
+  position:absolute;right:90px;top:50%;transform:translateY(-50%);
+  width:260px;height:260px;display:flex;align-items:center;justify-content:center;
+  z-index:3;
+}
+.s1-foco{
+  font-size:130px;line-height:1;
+  animation:focoBlink 1.8s ease-in-out infinite, focoFloat 4s ease-in-out infinite;
+  filter:drop-shadow(0 0 40px rgba(244,162,97,.6));
+}
+@keyframes focoBlink{
+  0%,100%{opacity:1;filter:drop-shadow(0 0 40px rgba(244,162,97,.7)) drop-shadow(0 0 80px rgba(230,57,70,.3));}
+  50%{opacity:.5;filter:drop-shadow(0 0 15px rgba(244,162,97,.2));}
+}
+@keyframes focoFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-18px);}
+}
+.s1-ring{
+  position:absolute;width:320px;height:320px;border-radius:50%;
+  border:1.5px solid rgba(244,162,97,.15);animation:ringPulse 3s ease-in-out infinite;
+}
+.s1-ring2{
+  position:absolute;width:240px;height:240px;border-radius:50%;
+  border:1px solid rgba(230,57,70,.1);animation:ringPulse 3s ease-in-out infinite .6s;
+}
+@keyframes ringPulse{
+  0%,100%{transform:scale(1);opacity:.6;}
+  50%{transform:scale(1.08);opacity:1;}
+}
+
+/* ══════════════════════════════════════════
+   SLIDE 2 — ÍNDICE
+══════════════════════════════════════════ */
+.s2{background:var(--cream);display:flex;}
+.s2-left{
+  width:36%;background:var(--blue-deep);display:flex;flex-direction:column;
+  justify-content:center;padding:64px 48px;position:relative;overflow:hidden;
+}
+.s2-left::after{
+  content:'';position:absolute;bottom:-70px;right:-70px;width:220px;height:220px;
+  border-radius:50%;background:rgba(255,255,255,.04);
+}
+.s2-left-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-light);margin-bottom:18px;}
+.s2-left-title{font-family:'Playfair Display',serif;font-size:38px;color:#fff;line-height:1.1;font-weight:700;margin-bottom:28px;}
+.s2-areas{display:flex;flex-direction:column;gap:14px;}
+.s2-area{padding:16px 18px;border-radius:8px;border-left:3px solid var(--accent);background:rgba(255,255,255,.05);}
+.s2-area-name{font-family:'Space Mono',monospace;font-size:14px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;}
+.s2-area-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5;}
+.s2-right{flex:1;padding:52px 46px;display:flex;flex-direction:column;justify-content:center;gap:9px;}
+.s2-head{font-family:'Playfair Display',serif;font-size:30px;color:var(--black);margin-bottom:4px;font-weight:700;}
+.s2-sub{font-size:14px;color:var(--gray);margin-bottom:14px;}
+.s2-item{
+  display:flex;align-items:center;gap:16px;padding:13px 18px;
+  border-radius:9px;background:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);
+  cursor:pointer;transition:transform .2s,box-shadow .2s;
+}
+.s2-item:hover{transform:translateX(7px);box-shadow:0 4px 18px rgba(0,0,0,.1);}
+.s2-num{font-family:'Space Mono',monospace;font-size:12px;color:var(--accent);font-weight:700;min-width:52px;}
+.s2-text{font-size:15px;color:var(--black);font-weight:500;}
+.s2-ico{margin-left:auto;font-size:18px;}
+
+/* ══════════════════════════════════════════
+   SLIDE 3 — DEFINICIÓN
+══════════════════════════════════════════ */
+.s3{background:#0a0a0a;display:flex;align-items:stretch;}
+.s3-left{
+  width:50%;background:linear-gradient(160deg,#e63946 0%,#9d0208 100%);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:64px 56px;position:relative;overflow:hidden;
+}
+.s3-left::before{
+  content:'"';position:absolute;top:-30px;left:24px;
+  font-family:'Playfair Display',serif;font-size:320px;color:rgba(0,0,0,.1);
+  line-height:1;pointer-events:none;
+}
+.s3-atag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:22px;}
+.s3-def{font-family:'Playfair Display',serif;font-size:21px;color:#fff;line-height:1.6;font-style:italic;margin-bottom:26px;position:relative;z-index:1;}
+.s3-cite{font-size:13px;color:rgba(255,255,255,.6);border-top:1px solid rgba(255,255,255,.18);padding-top:14px;line-height:1.7;}
+.s3-right{flex:1;padding:56px 52px;display:flex;flex-direction:column;justify-content:center;gap:18px;}
+.s3-title{font-family:'Playfair Display',serif;font-size:36px;color:#fff;margin-bottom:6px;font-weight:700;}
+.s3-body{font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;}
+.s3-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+.s3-pill{padding:7px 16px;border-radius:30px;border:1px solid rgba(255,255,255,.13);font-size:13px;color:rgba(255,255,255,.7);font-family:'Space Mono',monospace;letter-spacing:1px;}
+.s3-card{display:flex;align-items:center;gap:16px;padding:16px 18px;background:rgba(255,255,255,.05);border-radius:10px;border-left:3px solid var(--gold);}
+.s3-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--accent));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.s3-aname{font-size:15px;color:#fff;font-weight:600;}
+.s3-arole{font-size:12px;color:var(--gray);margin-top:3px;}
+
+/* ══════════════════════════════════════════
+   SLIDE 4 — HISTORIA
+══════════════════════════════════════════ */
+.s4{background:#0f1923;display:flex;flex-direction:column;padding:56px 76px;justify-content:center;position:relative;overflow:hidden;}
+.s4::before{content:'';position:absolute;top:-120px;right:-120px;width:450px;height:450px;border-radius:50%;background:radial-gradient(circle,rgba(69,123,157,.1),transparent 70%);}
+.s4-stag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-light);margin-bottom:10px;}
+.s4-title{font-family:'Playfair Display',serif;font-size:40px;color:#fff;font-weight:700;margin-bottom:46px;}
+.timeline{position:relative;display:flex;justify-content:space-between;align-items:flex-start;}
+.timeline::before{content:'';position:absolute;top:24px;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue-mid),var(--accent),var(--gold),transparent);}
+.tl-item{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 10px;}
+.tl-dot{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;position:relative;z-index:1;border:2px solid rgba(255,255,255,.1);}
+.tl-year{font-family:'Space Mono',monospace;font-size:13px;color:var(--gold);margin-bottom:8px;font-weight:700;}
+.tl-ev{font-size:13px;color:rgba(255,255,255,.68);line-height:1.55;}
+.tl-ev strong{color:#fff;display:block;margin-bottom:4px;font-size:14px;}
+
+/* ══════════════════════════════════════════
+   SLIDE 5 — EJEMPLOS GLOBALES
+══════════════════════════════════════════ */
+.s5{background:var(--cream);display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto 1fr 1fr;}
+.s5-header{
+  grid-column:1/-1;background:var(--blue-deep);
+  display:flex;align-items:center;justify-content:space-between;padding:26px 48px;
+}
+.s5-htitle{font-family:'Playfair Display',serif;font-size:34px;color:#fff;font-weight:700;}
+.s5-hsub{font-size:13px;color:rgba(255,255,255,.5);font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;}
+.ex-card{
+  padding:30px 26px;display:flex;flex-direction:column;gap:10px;
+  border-right:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06);
+  background:#fff;transition:background .25s;
+}
+.ex-card:hover{background:#f0f4f8;}
+.ex-emoji{font-size:34px;}
+.ex-name{font-size:16px;font-weight:700;color:var(--black);}
+.ex-desc{font-size:13px;color:var(--gray);line-height:1.65;}
+.ex-tag{display:inline-block;padding:4px 12px;background:rgba(230,57,70,.08);border-radius:20px;font-size:12px;color:var(--accent);font-family:'Space Mono',monospace;margin-top:auto;}
+
+/* ══════════════════════════════════════════
+   SLIDE 6 — PERÚ
+══════════════════════════════════════════ */
+.s6{background:#0a0a0a;display:flex;}
+.s6-map{
+  width:40%;background:linear-gradient(160deg,#1d3557 0%,#0a0a0a 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:46px 38px;gap:20px;position:relative;overflow:hidden;
+}
+.s6-flag{font-size:68px;}
+.s6-country{font-family:'Playfair Display',serif;font-size:50px;color:#fff;font-weight:700;text-align:center;}
+.s6-sub{font-size:14px;color:rgba(255,255,255,.5);text-align:center;line-height:1.6;}
+.s6-sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;}
+.s6-st{background:rgba(255,255,255,.05);border-radius:8px;padding:13px;text-align:center;border:1px solid rgba(255,255,255,.07);}
+.s6-sn{font-family:'Space Mono',monospace;font-size:22px;color:var(--gold);font-weight:700;}
+.s6-sl{font-size:11px;color:rgba(255,255,255,.42);margin-top:4px;}
+.s6-right{flex:1;padding:46px 46px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;}
+.s6-title{font-family:'Playfair Display',serif;font-size:30px;color:#fff;font-weight:700;margin-bottom:2px;}
+.s6-intro{font-size:14px;color:var(--gray);line-height:1.65;margin-bottom:6px;}
+.uni{display:flex;align-items:center;gap:14px;padding:13px 16px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.07);transition:border-color .2s;}
+.uni:hover{border-color:var(--accent);}
+.uni-e{font-size:26px;min-width:38px;text-align:center;}
+.uni-n{font-size:14px;color:#fff;font-weight:600;}
+.uni-t{font-size:12px;color:var(--gray);margin-top:2px;}
+.uni-b{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:11px;font-family:'Space Mono',monospace;background:rgba(244,162,97,.1);color:var(--gold);white-space:nowrap;}
+
+/* ══════════════════════════════════════════
+   SLIDE 7 — CONTEXTO & DESAFÍOS
+══════════════════════════════════════════ */
+.s7{background:var(--cream);display:flex;flex-direction:column;padding:48px 64px;gap:20px;}
+.s7-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;}
+.s7-title{font-family:'Playfair Display',serif;font-size:36px;color:var(--black);font-weight:700;}
+.s7-sub{font-size:14px;color:var(--gray);margin-top:7px;max-width:520px;line-height:1.65;}
+.s7-badge{padding:9px 20px;background:var(--accent);color:#fff;border-radius:4px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;}
+.s7-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;flex:1;}
+.cc{padding:20px 18px;border-radius:10px;display:flex;flex-direction:column;gap:9px;}
+.cc.red{background:rgba(230,57,70,.08);border:1px solid rgba(230,57,70,.16);}
+.cc.blue{background:rgba(29,53,87,.07);border:1px solid rgba(29,53,87,.13);}
+.cc.gold{background:rgba(244,162,97,.08);border:1px solid rgba(244,162,97,.16);}
+.cc-ic{font-size:28px;}
+.cc-ti{font-size:15px;font-weight:700;color:var(--black);}
+.cc-tx{font-size:12.5px;color:#555;line-height:1.65;}
+.s7-cite{font-size:12px;color:var(--gray);border-top:1px solid rgba(0,0,0,.08);padding-top:12px;font-style:italic;}
+
+/* ══════════════════════════════════════════
+   SLIDE 8 — v7 PROPUESTA DISRUPTIVA (FinEdu360°)
+══════════════════════════════════════════ */
+.s8-v7 {
+  background: var(--navy);
+}
+.s8-v7::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,191,176,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,191,176,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 0;
+}
+.s8-v7 .stripe {
+  position: absolute;
+  width: 520px;
+  height: 100%;
+  background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%);
+  right: 0; top: 0;
+  clip-path: polygon(14% 0%, 100% 0%, 100% 100%, 0% 100%);
+  z-index: 1;
+}
+.s8-v7 .stripe::after {
+  content: '';
+  position: absolute;
+  left: -3px; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, transparent, var(--gold-v7), transparent);
+}
+.s8-v7 .orb {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,191,176,0.09) 0%, transparent 70%);
+  bottom: -200px; right: 50px;
+  z-index: 2;
+}
+.s8-v7 .header-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--teal), var(--gold-v7), var(--red-accent));
+  z-index: 10;
+}
+.s8-v7 .v7-tag {
+  position: absolute;
+  top: 32px; left: 52px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--teal);
+  text-transform: uppercase;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.s8-v7 .v7-tag::before { content: '▶'; color: var(--gold-v7); font-size: 8px; }
+.s8-v7 .left-col {
+  position: absolute;
+  left: 52px; top: 68px;
+  width: 560px;
+  z-index: 10;
+}
+.s8-v7 .label-presenta {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: var(--gold-v7);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  border-left: 2px solid var(--gold-v7);
+  padding-left: 10px;
+}
+.s8-v7 .title-main {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 1.0;
+  color: var(--white-v7);
+  letter-spacing: -1px;
+}
+.s8-v7 .title-main span.accent { color: var(--gold-v7); font-style: italic; }
+.s8-v7 .title-main span.degree { color: var(--teal); font-size: 42px; }
+.s8-v7 .v7-subtitle {
+  margin-top: 14px;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  line-height: 1.65;
+  max-width: 490px;
+  font-weight: 300;
+}
+.s8-v7 .tags-row {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.s8-v7 .pill {
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold-light);
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  padding: 5px 12px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+.s8-v7 .pill.teal {
+  background: rgba(26,191,176,0.10);
+  border-color: rgba(26,191,176,0.3);
+  color: var(--teal);
+}
+.s8-v7 .right-col {
+  position: absolute;
+  right: 28px; top: 50px;
+  width: 430px;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.feature-card {
+  background: rgba(10,22,40,0.70);
+  border: 1px solid rgba(201,168,76,0.18);
+  border-radius: 6px;
+  padding: 18px 16px;
+  position: relative;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.3s;
+}
+.feature-card:hover { border-color: rgba(201,168,76,0.45); }
+.feature-card .fc-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+.feature-card .fc-title {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--gold-light);
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.feature-card .fc-desc {
+  font-size: 10.5px;
+  color: var(--text-soft);
+  line-height: 1.55;
+  font-weight: 300;
+}
+.feature-card.highlight {
+  grid-column: span 2;
+  background: linear-gradient(135deg, rgba(26,191,176,0.10), rgba(201,168,76,0.08));
+  border-color: rgba(26,191,176,0.35);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+}
+.feature-card.highlight .fc-icon { font-size: 28px; margin: 0; }
+.s8-v7 .bottom-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 48px;
+  background: linear-gradient(90deg, rgba(26,191,176,0.08), rgba(201,168,76,0.06));
+  border-top: 1px solid rgba(201,168,76,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 52px;
+  z-index: 10;
+}
+.s8-v7 .bottom-bar span {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: rgba(184,200,216,0.5);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.s8-v7 .bottom-bar .page-num { font-size: 11px; color: var(--gold-v7); }
+.circuit-svg {
+  position: absolute;
+  bottom: 50px; left: 30px;
+  opacity: 0.12;
+  z-index: 1;
+}
+@keyframes pulseTeal {
+  0%,100% { box-shadow: 0 0 0 0 rgba(26,191,176,0); }
+  50% { box-shadow: 0 0 18px 4px rgba(26,191,176,0.15); }
+}
+.feature-card.highlight { animation: pulseTeal 3s ease-in-out infinite; }
+
+/* ══════════════════════════════════════════
+   SLIDE 9 — v7 REFLEXIÓN PERSONAL
+══════════════════════════════════════════ */
+.s9-v7 {
+  background: #08111F;
+}
+.s9-v7::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(201,168,76,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(26,191,176,0.06) 0%, transparent 70%);
+  z-index: 0;
+}
+.s9-v7 .v-rule {
+  position: absolute;
+  left: 420px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent 5%, var(--gold-v7) 30%, var(--gold-v7) 70%, transparent 95%);
+  opacity: 0.35;
+  z-index: 2;
+}
+.s9-v7 .header-band {
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 6px;
+  background: linear-gradient(90deg, var(--gold-v7), var(--teal), var(--red-accent));
+  z-index: 10;
+}
+.s9-v7 .left-panel {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 420px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, transparent 100%);
+  border-right: 1px solid rgba(201,168,76,0.18);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 46px;
+  gap: 24px;
+}
+.s9-v7 .reflexion-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--teal);
+  text-transform: uppercase;
+  border-left: 2px solid var(--teal);
+  padding-left: 10px;
+}
+.s9-v7 .reflexion-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 46px;
+  font-weight: 900;
+  color: var(--white-v7);
+  line-height: 1.05;
+}
+.s9-v7 .reflexion-title span {
+  color: var(--gold-v7);
+  font-style: italic;
+  display: block;
+}
+.s9-v7 .author-block {
+  border-top: 1px solid rgba(201,168,76,0.25);
+  padding-top: 18px;
+}
+.s9-v7 .author-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  color: var(--gold-light);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.s9-v7 .author-role {
+  font-size: 10.5px;
+  color: var(--text-soft);
+  font-weight: 300;
+  letter-spacing: 0.3px;
+  line-height: 1.5;
+}
+.s9-v7 .stat-pair { display: flex; gap: 12px; }
+.s9-v7 .stat-box {
+  flex: 1;
+  background: rgba(10,22,40,0.6);
+  border: 1px solid rgba(26,191,176,0.2);
+  border-radius: 4px;
+  padding: 12px 14px;
+  text-align: center;
+}
+.s9-v7 .stat-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 20px;
+  color: var(--teal);
+  font-weight: 700;
+  display: block;
+}
+.s9-v7 .stat-label {
+  font-size: 9px;
+  color: var(--text-soft);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 2px;
+  display: block;
+}
+.s9-v7 .right-panel {
+  position: absolute;
+  left: 450px; top: 0; right: 0; bottom: 0;
+  z-index: 5;
+  padding: 48px 52px 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.s9-v7 .blockquote-block {
+  position: relative;
+  padding: 22px 28px 22px 36px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+  border-left: 4px solid var(--gold-v7);
+  border-radius: 0 6px 6px 0;
+}
+.s9-v7 .blockquote-block .bq-mark {
+  position: absolute;
+  top: -8px; left: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 72px;
+  color: var(--gold-v7);
+  opacity: 0.25;
+  line-height: 1;
+}
+.s9-v7 .bq-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 14.5px;
+  font-style: italic;
+  color: var(--gold-pale);
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+.s9-v7 .bq-source {
+  margin-top: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 8.5px;
+  color: rgba(201,168,76,0.55);
+  letter-spacing: 1px;
+}
+.s9-v7 .narrative {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  margin: 16px 0;
+}
+.s9-v7 .narrative p {
+  font-size: 12px;
+  color: var(--text-soft);
+  line-height: 1.72;
+  font-weight: 300;
+}
+.s9-v7 .narrative p strong { color: var(--white-v7); font-weight: 600; }
+.s9-v7 .narrative p .highlight-teal { color: var(--teal); font-weight: 500; }
+.s9-v7 .narrative p .highlight-gold { color: var(--gold-light); font-weight: 500; }
+.s9-v7 .closing {
+  background: linear-gradient(90deg, rgba(26,191,176,0.10), rgba(201,168,76,0.06));
+  border: 1px solid rgba(26,191,176,0.25);
+  border-radius: 6px;
+  padding: 16px 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.s9-v7 .closing-icon { font-size: 22px; margin-top: 2px; flex-shrink: 0; }
+.s9-v7 .closing-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--white-v7);
+  line-height: 1.6;
+  font-weight: 400;
+}
+.s9-v7 .closing-text strong { color: var(--teal); }
+.s9-v7 .footer-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 48px;
+  border-top: 1px solid rgba(201,168,76,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 52px;
+  z-index: 10;
+  background: rgba(8,17,31,0.5);
+}
+.s9-v7 .footer-bar span {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: rgba(184,200,216,0.4);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.s9-v7 .footer-bar .apa-ref {
+  font-size: 8.5px;
+  color: rgba(201,168,76,0.45);
+  font-style: italic;
+  letter-spacing: 0;
+  max-width: 600px;
+  text-align: right;
+}
+.s9-v7 .footer-bar .page-num { color: var(--gold-v7); font-size: 11px; }
+/* ══════════════════════════════════════════
+   SLIDE 10 — BIBLIOGRAFÍA
+══════════════════════════════════════════ */
+.s10{background:var(--blue-deep);display:flex;flex-direction:column;padding:50px 64px;gap:18px;overflow:hidden;}
+.s10-head{display:flex;align-items:center;gap:20px;}
+.s10-ic{font-size:44px;}
+.s10-title{font-family:"Playfair Display",serif;font-size:42px;color:#fff;font-weight:700;}
+.s10-tag{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue-light);margin-top:4px;}
+.bib-list{display:flex;flex-direction:column;gap:9px;flex:1;justify-content:center;}
+.bib{font-size:13px;color:rgba(255,255,255,.78);line-height:1.65;padding:11px 14px;background:rgba(255,255,255,.045);border-radius:6px;border-left:2px solid var(--blue-light);padding-left:2.4em;text-indent:-2em;}
+.bib-doi{color:var(--blue-light);}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="click-hint">🖱 Click o Enter para avanzar &nbsp;·&nbsp; ← → para navegar</div>
+
+<div id="scale-wrap">
+ <div id="slider-container">
+  <div id="slider">
+
+  <!-- ═══════ SLIDE 1: PORTADA ═══════ -->
+  <div class="slide s1 active" id="slide-1">
+    <div class="s1-bg"></div>
+    <div class="s1-grid"></div>
+    <div class="s1-content">
+      <div class="s1-tag">Máster en Innovación Educativa · Universidad Europea</div>
+      <div class="s1-title">Innovación</div>
+      <div class="s1-title-ghost">Disruptiva</div>
+      <div class="s1-divider"></div>
+      <div class="s1-meta">
+        <div class="s1-author"><strong>Marco F. Cárdenas Pérez</strong></div>
+        <div class="s1-author">Docente: <strong>María Huetos Domínguez</strong></div>
+        <div class="s1-author">Asignatura: <strong>Fundamentos Teóricos de la Innovación Educativa</strong></div>
+        <div class="s1-author" style="margin-top:6px;color:rgba(255,255,255,.5);font-size:15px;">Lima, Perú &nbsp;·&nbsp; Mayo – Junio 2026</div>
+      </div>
+      <div class="s1-badge">Explora · Presenta · Reflexiona</div>
+    </div>
+    <div class="s1-foco-wrap">
+      <div class="s1-ring"></div>
+      <div class="s1-ring2"></div>
+      <div class="s1-foco">💡</div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 2: ÍNDICE ═══════ -->
+  <div class="slide s2" id="slide-2">
+    <div class="s2-left">
+      <div class="s2-left-label">Estructura del reto</div>
+      <div class="s2-left-title">Áreas del<br>Aula del Futuro</div>
+      <div class="s2-areas">
+        <div class="s2-area">
+          <div class="s2-area-name">🔍 Explora</div>
+          <div class="s2-area-desc">Investigación, conceptos, autores y contexto educativo peruano</div>
+        </div>
+        <div class="s2-area">
+          <div class="s2-area-name">🎤 Presenta</div>
+          <div class="s2-area-desc">Análisis crítico, propuesta disruptiva y reflexión personal</div>
+        </div>
+      </div>
+    </div>
+    <div class="s2-right">
+      <div class="s2-head">CONTENIDO</div>
+      <div class="s2-sub">Estructura académica · Normas APA 7.ª edición</div>
+      <div class="s2-item"><span class="s2-num">Diap. 3</span><span class="s2-text">Capítulo 1: Definición Conceptual</span><span class="s2-ico">📖</span></div>
+      <div class="s2-item"><span class="s2-num">Diap. 4</span><span class="s2-text">Capítulo 2: Evolución Histórica</span><span class="s2-ico">⏳</span></div>
+      <div class="s2-item"><span class="s2-num">Diap. 5</span><span class="s2-text">Capítulo 3: Casos Globales</span><span class="s2-ico">🌍</span></div>
+      <div class="s2-item"><span class="s2-num">Diap. 6</span><span class="s2-text">Capítulo 4: Contexto Peruano</span><span class="s2-ico">🇵🇪</span></div>
+      <div class="s2-item"><span class="s2-num">Diap. 7</span><span class="s2-text">Capítulo 5: Análisis Crítico</span><span class="s2-ico">⚡</span></div>
+      <div class="s2-item"><span class="s2-num">Diap. 8</span><span class="s2-text">Capítulo 6: Propuesta Disruptiva FinEdu360°</span><span class="s2-ico">🚀</span></div>
+      <div class="s2-item"><span class="s2-num">Diap. 9</span><span class="s2-text">Capítulo 7: Reflexión Personal</span><span class="s2-ico">💬</span></div>
+      <div class="s2-item"><span class="s2-num">Diap. 10</span><span class="s2-text">Capítulo 8: Referencias Bibliográficas</span><span class="s2-ico">📚</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 3: DEFINICIÓN ═══════ -->
+  <div class="slide s3" id="slide-3">
+    <div class="s3-left">
+      <div class="s3-atag">🔍 Explora · Diapositiva 03</div>
+      <div class="s3-def">
+        "La innovación disruptiva describe un proceso por el cual un producto o servicio se arraiga inicialmente en aplicaciones simples del mercado no convencional, ascendiendo progresivamente para eventualmente desplazar a competidores establecidos" (Christensen, 1997).
+      </div>
+      <div class="s3-cite">
+        Christensen, C. M. (1997). <em>The innovator's dilemma: When new technologies cause great firms to fail.</em> Harvard Business School Press.<br><br>
+        Christensen, C. M., Baumann, H., Ruggles, R., &amp; Sadtler, T. M. (2006). Disruptive innovation for social change. <em>Harvard Business Review, 84</em>(12), 94–101.
+      </div>
+    </div>
+    <div class="s3-right">
+      <div class="s3-title">¿Qué es la<br>Innovación Disruptiva?</div>
+      <div class="s3-body">
+        A diferencia de la innovación incremental —que perfecciona lo existente— la innovación disruptiva <strong style="color:#fff">transforma radicalmente</strong> un sector al ofrecer una alternativa más accesible, sencilla o económica que eventualmente reemplaza a los modelos establecidos.
+      </div>
+      <div class="s3-pills">
+        <div class="s3-pill">Ruptura</div>
+        <div class="s3-pill">Democratización</div>
+        <div class="s3-pill">Escalabilidad</div>
+        <div class="s3-pill">Accesibilidad</div>
+        <div class="s3-pill">Transformación</div>
+      </div>
+      <div class="s3-card">
+        <div class="s3-avatar">📘</div>
+        <div><div class="s3-aname">Clayton M. Christensen</div><div class="s3-arole">Harvard Business School · Pionero de la Innovación Disruptiva · 1952–2020</div></div>
+      </div>
+      <div class="s3-card">
+        <div class="s3-avatar">🏛️</div>
+        <div><div class="s3-aname">UNESCO (2016)</div><div class="s3-arole">Serie Herramientas de Apoyo para el Trabajo Docente. Texto 1: Innovación Educativa. Lima: Cartolan E.I.R.L.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 4: HISTORIA ═══════ -->
+  <div class="slide s4" id="slide-4">
+    <div class="s4-stag">🔍 Explora · Historia &amp; Evolución</div>
+    <div class="s4-title">De Schumpeter a la IA: evolución del concepto disruptivo</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot" style="background:rgba(69,123,157,.3)">🏭</div>
+        <div class="tl-year">1942</div>
+        <div class="tl-ev"><strong>Joseph Schumpeter</strong>Introduce "destrucción creativa": innovaciones que sustituyen estructuras económicas establecidas (Schumpeter, 1942).</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:rgba(230,57,70,.3)">📗</div>
+        <div class="tl-year">1997</div>
+        <div class="tl-ev"><strong>Clayton Christensen</strong>Publica <em>The innovator's dilemma</em>. Se formaliza el término "innovación disruptiva" (Christensen, 1997).</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:rgba(244,162,97,.3)">🌐</div>
+        <div class="tl-year">2000s</div>
+        <div class="tl-ev"><strong>Revolución Digital</strong>Internet, Wikipedia y P2P disruptan medios, comercio y educación a escala global.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:rgba(168,218,220,.3)">📱</div>
+        <div class="tl-year">2007–2012</div>
+        <div class="tl-ev"><strong>iPhone · MOOCs</strong>Smartphone y Coursera/edX disruptan telecomunicaciones y educación superior mundial.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:rgba(230,57,70,.5)">🤖</div>
+        <div class="tl-year">2023+</div>
+        <div class="tl-ev"><strong>IA generativa</strong>GPT, Claude y LLMs reconfiguran el aprendizaje, la evaluación y el rol docente planetario.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 5: EJEMPLOS ═══════ -->
+  <div class="slide s5" id="slide-5">
+    <div class="s5-header">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:5px">🔍 Explora</div>
+        <div class="s5-htitle">Ejemplos de Innovación Disruptiva</div>
+      </div>
+      <div class="s5-hsub">Global &amp; Educativo</div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-emoji">🎓</div>
+      <div class="ex-name">MOOCs – Coursera / edX</div>
+      <div class="ex-desc">Democratizaron la educación superior: millones acceden a cursos de Harvard o MIT desde casa, a costo mínimo o gratuito (Reich &amp; Ruipérez-Valiente, 2019).</div>
+      <div class="ex-tag">Educación</div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-emoji">📱</div>
+      <div class="ex-name">Khan Academy</div>
+      <div class="ex-desc">Videos y ejercicios personalizados que posibilitaron el "aula invertida" y la enseñanza a ritmo propio en todo el mundo.</div>
+      <div class="ex-tag">Educación</div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-emoji">🏨</div>
+      <div class="ex-name">Airbnb</div>
+      <div class="ex-desc">Transformó la industria hotelera sin poseer un solo hotel. Modelo de economía colaborativa aplicable a recursos educativos abiertos.</div>
+      <div class="ex-tag">Economía colaborativa</div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-emoji">🤖</div>
+      <div class="ex-name">IA Generativa (GPT / Claude)</div>
+      <div class="ex-desc">Redefine la producción de contenido educativo, la evaluación y la tutoría personalizada; el mayor desafío disruptivo actual para la docencia.</div>
+      <div class="ex-tag">Tecnología</div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-emoji">🌍</div>
+      <div class="ex-name">Duolingo</div>
+      <div class="ex-desc">Gamificó el aprendizaje de idiomas y lo hizo accesible a más de 500 millones de personas, superando a cualquier academia tradicional.</div>
+      <div class="ex-tag">Lingüística</div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-emoji">🏙️</div>
+      <div class="ex-name">Medellín — Ciudad Innovadora</div>
+      <div class="ex-desc">Transformó la ciudad más peligrosa del mundo mediante innovación social, educación, urbanismo y tecnología. Premio Lee Kuan Yew 2013.</div>
+      <div class="ex-tag">Innovación social</div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 6: PERÚ ═══════ -->
+  <div class="slide s6" id="slide-6">
+    <div class="s6-map">
+      <div class="s6-flag">🇵🇪</div>
+      <div class="s6-country">Perú</div>
+      <div class="s6-sub">Educación Superior:<br>realidad, cifras y proyectos</div>
+      <div class="s6-sg">
+        <div class="s6-st"><div class="s6-sn">143</div><div class="s6-sl">Universidades licenciadas por SUNEDU (SUNEDU, 2024)</div></div>
+        <div class="s6-st"><div class="s6-sn">~1.5M</div><div class="s6-sl">Estudiantes universitarios</div></div>
+        <div class="s6-st"><div class="s6-sn">30%</div><div class="s6-sl">De la matrícula se concentra en regiones alejadas</div></div>
+        <div class="s6-st"><div class="s6-sn">62%</div><div class="s6-sl">De los docentes universitarios no cuentan con grado doctoral</div></div>
+      </div>
+    </div>
+    <div class="s6-right">
+      <div class="s6-title">Instituciones Clave</div>
+      <div class="s6-intro">Proyectos de innovación educativa en el sistema universitario peruano, desde contextos de alta conectividad hasta zonas remotas.</div>
+      <div class="uni"><div class="uni-e">🏛️</div><div><div class="uni-n">PUCP – Pontificia Universidad Católica del Perú</div><div class="uni-t">Centro de innovación con proyectos de aprendizaje activo y laboratorios creativos.</div></div><div class="uni-b">Primera en el Perú</div></div>
+      <div class="uni"><div class="uni-e">🔬</div><div><div class="uni-n">UTEC – Universidad de Ingeniería y Tecnología</div><div class="uni-t">Modelo de innovación educativa basado en Maker, PBL y STEM.</div></div><div class="uni-b">Alto nivel de innovación</div></div>
+      <div class="uni"><div class="uni-e">📡</div><div><div class="uni-n">UPC – Universidad Peruana de Ciencias Aplicadas</div><div class="uni-t">Integración de Design Thinking, aulas híbridas, competencias digitales.</div></div><div class="uni-b">Modelo híbrido</div></div>
+      <div class="uni"><div class="uni-e">🏔️</div><div><div class="uni-n">UNSAAC – Universidad San Antonio Abad del Cusco</div><div class="uni-t">Contexto intercultural andino con limitaciones tecnológicas.</div></div><div class="uni-b">Contexto de recursos limitados</div></div>
+      <div class="uni"><div class="uni-e">🌿</div><div><div class="uni-n">UNAP – Universidad Nacional de la Amazonía Peruana</div><div class="uni-t">Educación en selva con conectividad limitada e innovación de bajo costo.</div></div><div class="uni-b">Contexto geográfico remoto</div></div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 7: CONTEXTO ═══════ -->
+  <div class="slide s7" id="slide-7">
+    <div class="s7-head">
+      <div>
+        <div class="s7-title">Contexto &amp; Desafíos<br>de la Educación Superior en Perú</div>
+        <div class="s7-sub">Análisis crítico: de las instituciones más austeras a las más conectadas — la brecha que justifica la innovación disruptiva.</div>
+      </div>
+      <div class="s7-badge">⚡ Análisis crítico</div>
+    </div>
+    <div class="s7-grid">
+      <div class="cc red"><div class="cc-ic">📶</div><div class="cc-ti">Brecha digital</div><div class="cc-tx">El 55.6% de los hogares peruanos dispuso de servicio de internet al cierre del 2023, lo que evidencia una conectividad todavía desigual entre ámbitos urbanos y rurales (INEI, 2024).</div></div>
+      <div class="cc blue"><div class="cc-ic">👩‍🏫</div><div class="cc-ti">Formación docente insuficiente</div><div class="cc-tx">La baja proporción de docentes con grado doctoral limita la institucionalización de la innovación pedagógica en el sistema universitario (SUNEDU, 2022).</div></div>
+      <div class="cc gold"><div class="cc-ic">🏚️</div><div class="cc-ti">Infraestructura austera</div><div class="cc-tx">Muchas universidades del interior operan con laboratorios limitados, bibliografía desactualizada y condiciones de hacinamiento que restringen la experiencia formativa (MINEDU, 2021).</div></div>
+      <div class="cc blue"><div class="cc-ic">👨‍👩‍👧</div><div class="cc-ti">Participación familiar limitada</div><div class="cc-tx">La educación superior suele involucrar poco a la familia, aunque el capital social familiar influye en la permanencia universitaria (GRADE, 2020).</div></div>
+      <div class="cc red"><div class="cc-ic">💰</div><div class="cc-ti">Perfil financiero crítico</div><div class="cc-tx">Como magíster en Banca y Finanzas: retorno educativo bajo, alta deserción (30%), deuda estudiantil creciente y escasa vinculación con el mercado laboral.</div></div>
+      <div class="cc gold"><div class="cc-ic">🌏</div><div class="cc-ti">Oportunidad disruptiva</div><div class="cc-tx">La restricción y la escasez pueden acelerar la innovación inversa para el diseño de soluciones de bajo costo y alto impacto escalables a toda la región (Govindarajan &amp; Trimble, 2012).</div></div>
+    </div>
+    <div class="s7-cite">Fuentes: INEI (2023); SUNEDU (2022); MINEDU (2021); GRADE (2020); Govindarajan, V., &amp; Trimble, C. (2012). <em>Reverse innovation.</em> Harvard Business Review Press.</div>
+  </div>
+
+  <!-- ═══════ SLIDE 8: v7 PROPUESTA DISRUPTIVA FinEdu360° ═══════ -->
+  <div class="slide s8-v7" id="slide-8">
+    <div class="header-bar"></div>
+    <div class="stripe"></div>
+    <div class="orb"></div>
+
+    <svg class="circuit-svg" width="280" height="180" viewBox="0 0 280 180" fill="none">
+      <path d="M10 90 H60 V40 H160 V90 H220 V140 H280" stroke="#1ABFB0" stroke-width="1.5"/>
+      <circle cx="60" cy="90" r="4" fill="#1ABFB0"/>
+      <circle cx="160" cy="40" r="4" fill="#C9A84C"/>
+      <circle cx="160" cy="90" r="3" fill="#1ABFB0"/>
+      <circle cx="220" cy="140" r="4" fill="#C9A84C"/>
+      <path d="M10 140 H80 V110 H130" stroke="#C9A84C" stroke-width="1" stroke-dasharray="4 3"/>
+      <path d="M250 10 V60 H200 V100" stroke="#1ABFB0" stroke-width="1" stroke-dasharray="4 3"/>
+      <circle cx="200" cy="60" r="3" fill="#C9A84C"/>
+    </svg>
+
+    <div class="v7-tag">
+      EL RETO — INNOVACIÓN DISRUPTIVA EN EDUCACIÓN
+    </div>
+
+    <div class="left-col">
+      <div class="label-presenta">PRESENTA</div>
+      <h1 class="title-main">
+        Fin<span class="accent">Edu</span><span class="degree">360°</span>
+      </h1>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;color:#1ABFB0;font-weight:400;margin-top:4px;letter-spacing:0.5px;">Finanzas + Educación · IA Adaptativa · Perú</div>
+      <p class="v7-subtitle">
+        Desde mi expertise en <strong style="color:#E8C96A;">Finanzas y Banca</strong>, propongo una plataforma disruptiva que integra educación financiera crítica en la curricula universitaria peruana mediante IA adaptativa, micro-simulaciones con datos reales del BCR-Perú y aprendizaje por retos financieros contextualizados.
+      </p>
+      <div class="tags-row">
+        <span class="pill">IA Generativa</span>
+        <span class="pill teal">BCR Data</span>
+        <span class="pill">Offline-first</span>
+        <span class="pill teal">Intercultural</span>
+        <span class="pill">Open source</span>
+        <span class="pill teal">Escalable</span>
+        <span class="pill" style="background:rgba(232,82,58,0.12);border-color:rgba(232,82,58,0.3);color:#F07A68;">Justicia Educativa</span>
+      </div>
+    </div>
+
+    <div class="right-col">
+      <div class="feature-card">
+        <span class="fc-icon">🤖</span>
+        <div class="fc-title">IA Adaptativa</div>
+        <div class="fc-desc">Personaliza el itinerario de aprendizaje financiero según el perfil de cada estudiante</div>
+      </div>
+      <div class="feature-card">
+        <span class="fc-icon">🎮</span>
+        <div class="fc-title">Gamificación Real</div>
+        <div class="fc-desc">Simulaciones de mercado, préstamos y emprendimiento con datos reales BCR-Perú</div>
+      </div>
+      <div class="feature-card">
+        <span class="fc-icon">👥</span>
+        <div class="fc-title">Colaborativo</div>
+        <div class="fc-desc">Redes inter-universitarias que conectan Lima con la Amazonía y los Andes</div>
+      </div>
+      <div class="feature-card">
+        <span class="fc-icon">📱</span>
+        <div class="fc-title">Offline-first</div>
+        <div class="fc-desc">Funciona sin internet continuo: innovación inversa para zonas rurales peruanas</div>
+      </div>
+      <div class="feature-card highlight">
+        <span class="fc-icon">💹</span>
+        <div>
+          <div class="fc-title" style="color:#1ABFB0;">FinEdu360° — Impacto Central</div>
+          <div class="fc-desc" style="color:#B8C8D8;">Una sola plataforma. Múltiples regiones. Un Perú con justicia educativa financiera.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <span>FinEdu360° · Innovación Disruptiva · 2026</span>
+      <span>Marco F. Cárdenas Pérez · Mgtr. Banca y Finanzas</span>
+      <span class="page-num">08 / 09</span>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 9: v7 REFLEXIÓN PERSONAL ═══════ -->
+  <div class="slide s9-v7" id="slide-9">
+    <div class="header-band"></div>
+    <div class="v-rule"></div>
+
+    <div class="left-panel">
+      <div class="reflexion-tag">Reflexión Personal</div>
+      <div>
+        <h2 class="reflexion-title">
+          Dos mundos,<br>
+          <span>una promesa</span>
+        </h2>
+      </div>
+      <div class="stat-pair">
+        <div class="stat-box">
+          <span class="stat-num">+30%</span>
+          <span class="stat-label">Brecha digital<br>Lima vs. regiones</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">≈8M</span>
+          <span class="stat-label">Estudiantes sin<br>ed. financiera</span>
+        </div>
+      </div>
+      <div class="author-block">
+        <div class="author-name">Marco F. Cárdenas Pérez</div>
+        <div class="author-role">Magíster en Banca y Finanzas<br>Innovador Educativo · FinEdu360°</div>
+      </div>
+    </div>
+
+    <div class="right-panel" style="padding-bottom:60px;">
+      <div class="blockquote-block">
+        <span class="bq-mark">"</span>
+        <p class="bq-text">
+          La escuela no puede esperar a que el mundo cambie;<br>el mundo ya cambió y la escuela aún no lo sabe.
+        </p>
+        <div class="bq-source">— Adaptación de: Christensen, C. M. (1997). <em>The Innovator's Dilemma.</em> Harvard Business School Press.</div>
+      </div>
+
+      <div class="narrative">
+        <p>
+          Como <strong>magíster en Banca y Finanzas</strong>, este recorrido por la innovación disruptiva me ha confirmado que los sistemas que más necesitan transformación son los que <span class="highlight-teal">menos recursos tienen</span>. La educación superior peruana —especialmente en regiones alejadas— no es el problema: es la <span class="highlight-gold">oportunidad de innovación más poderosa de Iberoamérica</span>.
+        </p>
+        <p style="margin-top:10px;">
+          La propuesta <strong>FinEdu360°</strong> nace de entender que un estudiante de las zonas más alejadas del país necesita las mismas herramientas que uno de Lima — pero entregadas de forma <span class="highlight-teal">contextualizada, offline</span> y con <span class="highlight-gold">narrativa cultural propia</span>. Eso es innovación disruptiva aplicada a la justicia educativa.
+        </p>
+        <p style="margin-top:10px;">
+          Este reto me ha impulsado a cruzar mis dos mundos: las <strong>finanzas</strong> y la <strong>educación</strong>. El resultado no es un plan de negocio: <span class="highlight-gold">es una promesa de impacto social.</span>
+        </p>
+      </div>
+
+      <div class="closing">
+        <span class="closing-icon">🌎</span>
+        <div class="closing-text">
+          <strong>FinEdu360° no es tecnología por la tecnología.</strong> Es innovación disruptiva al servicio de la equidad: llevar educación financiera de calidad a cada rincón del Perú, desde los Andes hasta la Amazonía, con IA que habla el idioma de su contexto.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>FinEdu360° · 2026</span>
+      <span class="apa-ref">Referencia APA 7ª ed.: Christensen, C. M. (1997). <em>The Innovator's Dilemma: When New Technologies Cause Great Firms to Fail.</em> Harvard Business School Press.</span>
+      <span class="page-num">09 / 09</span>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 10: BIBLIOGRAFÍA ═══════ -->
+  <div class="slide s10" id="slide-10">
+    <div class="s10-head">
+      <div class="s10-ic">📚</div>
+      <div>
+        <div class="s10-title">Bibliografía</div>
+        <div class="s10-tag">Normas APA · 7.ª Edición</div>
+      </div>
+    </div>
+    <div class="bib-list">
+      <div class="bib">Christensen, C. M. (1997). <em>The innovator's dilemma: When new technologies cause great firms to fail.</em> Harvard Business School Press.</div>
+      <div class="bib">Christensen, C. M., Baumann, H., Ruggles, R., &amp; Sadtler, T. M. (2006). Disruptive innovation for social change. <em>Harvard Business Review, 84</em>(12), 94–101.</div>
+      <div class="bib">Govindarajan, V., &amp; Trimble, C. (2012). <em>Reverse innovation: Create far from home, win everywhere.</em> Harvard Business Review Press.</div>
+      <div class="bib">INEI. (2023). <em>Estadísticas de tecnologías de información y comunicación en los hogares.</em> Instituto Nacional de Estadística e Informática. <span class="bib-doi">https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1876/libro.pdf</span></div>
+      <div class="bib">MINEDU. (2021). <em>Indicadores de la educación en el Perú.</em> Ministerio de Educación del Perú. <span class="bib-doi">https://escale.minedu.gob.pe</span></div>
+      <div class="bib">OCDE. (2005). <em>Manual de Oslo: Guía para la recogida e interpretación de datos sobre innovación</em> (3.ª ed.). OCDE / Eurostat.</div>
+      <div class="bib">Reich, J., &amp; Ruipérez-Valiente, J. A. (2019). The MOOC pivot. <em>Science, 363</em>(6423), 130–131. <span class="bib-doi">https://doi.org/10.1126/science.aav7958</span></div>
+      <div class="bib">Schumpeter, J. A. (1942). <em>Capitalism, socialism and democracy.</em> Harper &amp; Brothers.</div>
+      <div class="bib">SUNEDU. (2022). <em>II Informe bienal sobre la realidad universitaria en el Perú.</em> Superintendencia Nacional de Educación Superior Universitaria. <span class="bib-doi">https://www.sunedu.gob.pe/files/publicaciones/II-Informe-Bienal.pdf</span></div>
+      <div class="bib">UNESCO. (2016). <em>Serie "Herramientas de apoyo para el trabajo docente". Texto 1: Innovación Educativa.</em> Cartolan E.I.R.L.</div>
+      <div class="bib">GRADE. (2020). <em>Capital social y permanencia en educación superior en el Perú.</em> Grupo de Análisis para el Desarrollo. <span class="bib-doi">https://www.grade.org.pe</span></div>
+    </div>
+  </div>
+
+  </div><!-- /slider -->
+ </div><!-- /slider-container -->
+</div><!-- /scale-wrap -->
+
+<!-- Navigation bar -->
+<div id="nav">
+  <button onclick="changeSlide(-1)" title="Anterior">‹</button>
+  <div id="dot-nav"></div>
+  <span id="slide-counter">1 / 10</span>
+  <button onclick="changeSlide(1)" title="Siguiente">›</button>
+</div>
+
+<script>
+const TOTAL = 10;
+let current = 1;
+let isAnimating = false;
+
+function scaleSlider(){
+  const c=document.getElementById('slider-container');
+  const W=1280,H=720;
+  const s=Math.min(window.innerWidth/W,window.innerHeight/H)*0.95;
+  c.style.transform=`scale(${s})`;
+  c.style.width=W+'px';
+  c.style.height=H+'px';
+}
+window.addEventListener('resize',scaleSlider);
+scaleSlider();
+
+const dotNav=document.getElementById('dot-nav');
+for(let i=1;i<=TOTAL;i++){
+  const d=document.createElement('div');
+  d.className='dot'+(i===1?' active':'');
+  d.onclick=(e)=>{e.stopPropagation();goTo(i);};
+  dotNav.appendChild(d);
+}
+
+function updateUI(){
+  document.getElementById('slide-counter').textContent=`${current} / ${TOTAL}`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i+1===current));
+  document.getElementById('progress').style.width=`${(current/TOTAL)*100}%`;
+}
+
+function goTo(n){
+  if(isAnimating||n===current)return;
+  isAnimating=true;
+  const prev=document.getElementById(`slide-${current}`);
+  prev.classList.remove('active');
+  prev.classList.add('exit');
+  current=n;
+  const next=document.getElementById(`slide-${current}`);
+  setTimeout(()=>{
+    prev.classList.remove('exit');
+    next.classList.add('active');
+    updateUI();
+    setTimeout(()=>{isAnimating=false;},520);
+  },50);
+}
+
+function changeSlide(dir){
+  const n=Math.max(1,Math.min(TOTAL,current+dir));
+  goTo(n);
+}
+
+document.getElementById('slider').addEventListener('click',()=>changeSlide(1));
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='Enter'||e.key===' ')changeSlide(1);
+  if(e.key==='ArrowLeft')changeSlide(-1);
+  e.preventDefault();
+});
+
+let tx=null;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;});
+document.addEventListener('touchend',e=>{
+  if(tx===null)return;
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>50)changeSlide(dx<0?1:-1);
+  tx=null;
+});
+
+updateUI();
+</script>
+</body>
+</html>
